@@ -25,7 +25,7 @@ export default function ReportForm({
   const [province, setProvince] = useState<Province>("Bagmati");
   const [photos, setPhotos] = useState<string[]>([]);
 
-  const onSubmit =async (data: FormReport) => {
+  const onSubmit = async (data: FormReport) => {
     const formData = new FormData();
     formData.append("category", data.category);
     formData.append("province", data.province);
