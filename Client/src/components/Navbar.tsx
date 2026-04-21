@@ -1,0 +1,107 @@
+import { Leaf, Menu, X, Filter } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FilterComponent } from "./FilterComponent";
+
+export default function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const selectedCategories = ["A", "b"];
+  const selectedProvinces = ["A", "b"];
+
+  const navigate = useNavigate();
+
+  return (
+    <nav className="bg-white shadow-md fixed w-full top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div
+            className="flex items-center space-x-3 cursor-pointer"
+            onClick={() => navigate("/")}
+          >
+            <div className="bg-green-600 p-2 rounded-full">
+              <Leaf className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-xl font-bold text-green-800">
+              Civic Sense
+            </span>
+          </div>
+
+          <div className="hidden md:flex items-center space-x-8">
+            <button
+              onClick={() => navigate("/")}
+              className="font-medium transition-colors hover:text-red-600"
+            >
+              Home
+            </button>
+            <button
+              onClick={() => navigate("/reports")}
+              className="font-medium transition-colors hover:text-green-600"
+            >
+              Reports
+            </button>
+            <button
+              onClick={() => setFiltersOpen(!filtersOpen)}
+              className="flex items-center space-x-1 font-medium text-stone-600 hover:text-green-600 transition-colors"
+            >
+              <Filter className="w-4 h-4" />
+              <span>Filters</span>
+              {(selectedCategories.length > 0 ||
+                selectedProvinces.length > 0) && (
+                <span className="bg-green-600 text-white text-xs rounded-full px-2 py-0.5">
+                  {selectedCategories.length + selectedProvinces.length}
+                </span>
+              )}
+            </button>
+          </div>
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-stone-600 hover:bg-stone-100"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-stone-200">
+          <div className="px-4 py-3 space-y-3">
+            <button
+              onClick={() => {
+                navigate("/");
+                setMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-4 py-2 rounded-lg font-medium text-stone-600 hover:bg-stone-50"
+            >
+              Home
+            </button>
+            <button
+              onClick={() => {
+                navigate("/reports");
+                setMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-4 py-2 rounded-lg font-medium text-stone-600 hover:bg-stone-50"
+            >
+              Reports
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+              }}
+              className="block w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      )}
+
+      {filtersOpen && <FilterComponent />}
+    </nav>
+  );
+}
