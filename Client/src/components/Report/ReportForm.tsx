@@ -9,6 +9,7 @@ import {
 import { HandlePhotosUpload } from "./HandlePhotosUpload";
 import { useForm } from "react-hook-form";
 import { useMyLocation } from "./myLocation";
+import axios from "axios";
 interface ReportFormProps {
   setIssueForm: (data: boolean) => void;
   issueForm: boolean;
@@ -22,11 +23,36 @@ export default function ReportForm({
   const { location: currentLocation, getLocation } = useMyLocation();
 
   const [province, setProvince] = useState<Province>("Bagmati");
-  const[photos,setPhotos]=useState<string[]>([])
-  const onSubmit = (data: FormReport) => {
-    const reportData={photos,...data}
-    console.log(reportData);
+  const [photos, setPhotos] = useState<string[]>([]);
 
+  const onSubmit =async (data: FormReport) => {
+    const formData = new FormData();
+    formData.append("category", data.category);
+    formData.append("province", data.province);
+    formData.append("district", data.district);
+    formData.append("address", data.address);
+    formData.append("description", data.description);
+
+    if (data.location) {
+      formData.append("location", JSON.stringify(data.location));
+    }
+    photos.forEach((photo) => {
+      formData.append("images", photo);
+    });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/report",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+      console.log(response);
+    } catch (error) {
+      console.log("Cannot Submit the report ");
+    }
   };
 
   useEffect(() => {
@@ -145,7 +171,7 @@ export default function ReportForm({
             />
           </div>
 
-          <HandlePhotosUpload photos={photos} setPhotos={setPhotos}/>
+          <HandlePhotosUpload photos={photos} setPhotos={setPhotos} />
           <div>
             <label className="block text-sm font-medium text-stone-700 mb-2">
               Location

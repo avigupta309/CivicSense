@@ -9,7 +9,7 @@ configDotenv();
 const mongo_URI = process.env.MONGO_URI;
 
 const corsOperation = {
-  origin: ["http://localhost:5173/"],
+  origin: ["http://localhost:5173"],
   methods: ["POST", "GET", "PUT", "DELETE"],
   credentials: true,
 };

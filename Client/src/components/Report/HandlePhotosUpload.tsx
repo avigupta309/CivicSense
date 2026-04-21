@@ -8,7 +8,6 @@ interface photosUploadProps {
 export const HandlePhotosUpload = ({ photos, setPhotos }: photosUploadProps) => {
   const submitPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    console.log(files);
     if (files && photos.length < 3) {
       const newPhotos = Array.from(files)
         .slice(0, 3 - photos.length)
