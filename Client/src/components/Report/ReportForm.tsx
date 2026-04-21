@@ -6,7 +6,7 @@ import {
   Provinces,
   districtsByProvince,
 } from "../../mockData";
-import { HandlePhotosUpload } from "../HandlePhotosUpload";
+import { HandlePhotosUpload } from "./HandlePhotosUpload";
 import { useForm } from "react-hook-form";
 import { useMyLocation } from "./myLocation";
 interface ReportFormProps {

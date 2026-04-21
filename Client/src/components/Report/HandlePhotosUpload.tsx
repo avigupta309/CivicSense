@@ -1,13 +1,11 @@
 import { Upload, X } from "lucide-react";
-import React, { useState } from "react";
 
-interface photosProps {
+interface photosUploadProps {
   photos: string[];
   setPhotos: (photos: string[]) => void;
 }
 
-export const HandlePhotosUpload = ({photos,setPhotos}:photosProps) => {
-
+export const HandlePhotosUpload = ({ photos, setPhotos }: photosUploadProps) => {
   const submitPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     console.log(files);
@@ -15,7 +13,7 @@ export const HandlePhotosUpload = ({photos,setPhotos}:photosProps) => {
       const newPhotos = Array.from(files)
         .slice(0, 3 - photos.length)
         .map((file) => URL.createObjectURL(file));
-       setPhotos([...photos, ...newPhotos]);
+      setPhotos([...photos, ...newPhotos]);
     }
   };
 
