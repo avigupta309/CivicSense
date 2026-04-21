@@ -26,12 +26,14 @@ export default function ReportForm({
   const [photos, setPhotos] = useState<string[]>([]);
 
   const onSubmit = async (data: FormReport) => {
+    const id = "69e65501af366403dc72ed03";
     const formData = new FormData();
     formData.append("category", data.category);
     formData.append("province", data.province);
     formData.append("district", data.district);
     formData.append("address", data.address);
     formData.append("description", data.description);
+    formData.append("id", id);
 
     if (data.location) {
       formData.append("location", JSON.stringify(data.location));

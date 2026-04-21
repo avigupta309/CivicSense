@@ -7,7 +7,6 @@ export async function SubmitReport(req, res) {
   try {
     const user = await userModel.findById(id);
     if (!user) return res.status(401).json({ message: "User Not Found" });
-    console.log(user);
     const submitReport = await reportModel.create({
       reporter: user.fullName,
       description: description,
@@ -20,7 +19,24 @@ export async function SubmitReport(req, res) {
       },
       category: category,
     });
-    return res.status(201).json({ message: submitReport });
+    return res.status(201).json({ message: "Report Submit Sucessfully !!" });
+  } catch (error) {
+    return res.status(500).json({ message: "Something Went Wrong" });
+  }
+}
+
+export async function reviewReport(req, res) {
+  const { id } = req.params;
+  try {
+    const report = await reportModel.findById(id);
+    if (!report)
+      return res
+        .status(400)
+        .json({ message: "Report is Not Found In DataBase" });
+    // await reportModel.findByIdAndDelete(id);
+    const sendReport = await reportModel.findById(id).populate("reporterInfo");
+    // console.log(sendReport);
+    return res.status(200).json({ data: sendReport });
   } catch (error) {
     return res.status(500).json({ message: "Something Went Wrong" });
   }
