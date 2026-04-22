@@ -35,10 +35,15 @@ const reportSchema = new Schema(
         type: Number,
       },
     },
+    imagesUrls: {
+      type: [String],
+      default: [],
+    },
     reporterInfo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
-      required: true,
+      // required: true,
+      default: [],
     },
   },
   { timestamps: true },

@@ -23,38 +23,64 @@ export default function ReportForm({
   const { location: currentLocation, getLocation } = useMyLocation();
 
   const [province, setProvince] = useState<Province>("Bagmati");
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<File[]>([]);
 
   const onSubmit = async (data: FormReport) => {
-    const id = "69e65501af366403dc72ed03";
     const formData = new FormData();
+    const id = "69e65501af366403dc72ed03";
     formData.append("category", data.category);
     formData.append("province", data.province);
     formData.append("district", data.district);
     formData.append("address", data.address);
     formData.append("description", data.description);
     formData.append("id", id);
-
     if (data.location) {
       formData.append("location", JSON.stringify(data.location));
     }
+
     photos.forEach((photo) => {
       formData.append("images", photo);
     });
+
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/report",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      await axios.post("http://localhost:3000/api/report", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-      );
-      console.log(response);
+      });
     } catch (error) {
       console.log("Cannot Submit the report ");
     }
+
+    // const id = "69e65501af366403dc72ed03";
+    // const formData = new FormData();
+    // formData.append("category", data.category);
+    // formData.append("province", data.province);
+    // formData.append("district", data.district);
+    // formData.append("address", data.address);
+    // formData.append("description", data.description);
+    // formData.append("id", id);
+
+    // if (data.location) {
+    //   formData.append("location", JSON.stringify(data.location));
+    // }
+    // photos.forEach((photo) => {
+    //   formData.append("images", photo);
+    // });
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:3000/api/report",
+    //     formData,
+    //     {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     },
+    //   );
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log("Cannot Submit the report ");
+    // }
   };
 
   useEffect(() => {

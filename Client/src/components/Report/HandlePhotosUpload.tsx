@@ -1,24 +1,36 @@
 import { Upload, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface photosUploadProps {
-  photos: string[];
-  setPhotos: (photos: string[]) => void;
+  photos: File[];
+  setPhotos: React.Dispatch<React.SetStateAction<File[]>>;
 }
 
-export const HandlePhotosUpload = ({ photos, setPhotos }: photosUploadProps) => {
+export const HandlePhotosUpload = ({
+  photos,
+  setPhotos,
+}: photosUploadProps) => {
+  const [preview, setPreview] = useState<string[]>([]);
   const submitPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && photos.length < 3) {
-      const newPhotos = Array.from(files)
-        .slice(0, 3 - photos.length)
-        .map((file) => URL.createObjectURL(file));
-      setPhotos([...photos, ...newPhotos]);
+      const fileArray = Array.from(files).slice(0, 3 - photos.length);
+      setPhotos((prev) => [...prev, ...fileArray]);
+      const previews = fileArray.map((file) => URL.createObjectURL(file));
+      setPreview((prev) => [...prev, ...previews]);
     }
   };
 
   function removePhoto(index: number) {
+    URL.revokeObjectURL(preview[index]);
     setPhotos(photos.filter((_, i) => i !== index));
+    setPreview(preview.filter((_, i) => i !== index));
   }
+  useEffect(() => {
+    return () => {
+      preview.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [preview]);
 
   return (
     <div>
@@ -33,7 +45,9 @@ export const HandlePhotosUpload = ({ photos, setPhotos }: photosUploadProps) => 
               <p className="text-sm text-stone-600">
                 Click to upload or drag and drop
               </p>
-              <p className="text-xs text-stone-400 mt-1">PNG, JPG up to 10MB</p>
+              <p className="text-xs text-stone-400 mt-1">
+                {3 - photos.length} slots remaining (PNG, JPG up to 10MB)
+              </p>
             </div>
             <input
               type="file"
@@ -47,7 +61,7 @@ export const HandlePhotosUpload = ({ photos, setPhotos }: photosUploadProps) => 
 
         {photos.length > 0 && (
           <div className="grid grid-cols-3 gap-3">
-            {photos.map((photo, index) => (
+            {preview.map((photo, index) => (
               <div key={index} className="relative group">
                 <img
                   src={photo}
