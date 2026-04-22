@@ -1,4 +1,4 @@
-import { Report, Province } from "./types";
+import { Report, Province, IssueCategory } from "./types";
 
 export const mockReports: Report[] = [
   {
@@ -188,7 +188,7 @@ export const districtsByProvince: Record<Province, string[]> = {
   ],
 };
 
-export const ISSUE_CATEGORIES = [
+export const ISSUE_CATEGORIES:IssueCategory[] = [
   "Deforestation",
   "Landslides",
   "River Pollution",
@@ -198,7 +198,7 @@ export const ISSUE_CATEGORIES = [
   "Other",
 ];
 
-export const Provinces = [
+export const Provinces:Province[] = [
   "Koshi",
   "Madhesh",
   "Bagmati",

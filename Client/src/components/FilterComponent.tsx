@@ -1,30 +1,39 @@
-import { useState } from "react";
 import { ISSUE_CATEGORIES, Provinces } from "../mockData";
+import { useDataContext } from "../Context/FilterContext";
+import { IssueCategory, Province } from "../types";
 
-export const FilterComponent = () => {
-  const [selectedCategories, setSelectedCategories] = useState<String[]>([]);
-  const [selectedProvince, setSelectedProvince] = useState<String[]>([]);
+interface filterBarToggle {
+  setFiltersOpen: (data: boolean) => void;
+  filtersOpen: boolean;
+}
 
-  function addCategory(category: string) {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories((prev) => prev.filter((c) => c != category));
+export const FilterComponent = ({ setFiltersOpen ,filtersOpen}: filterBarToggle) => {
+  const {
+    selectedCategory,
+    selectedProvince,
+    setSelectedCategory,
+    setSelectedProvince,
+  } = useDataContext();
+
+  function addCategory(cate: IssueCategory) {
+    if (selectedCategory.includes(cate)) {
+      setSelectedCategory((prev) => prev.filter((c) => c != cate));
     } else {
-      setSelectedCategories((prev) => [...prev, category]);
+      setSelectedCategory((prev) => [...prev, cate]);
     }
   }
 
-  function addProvinces(province: String) {
-    if (selectedProvince.includes(province)) {
-      setSelectedProvince((prev) => prev.filter((p) => p !== province));
+  function addProvinces(prov: Province) {
+    if (selectedProvince.includes(prov)) {
+      setSelectedProvince((prev) => prev.filter((p) => p !== prov));
     } else {
-      setSelectedProvince((prev) => [...prev, province]);
+      setSelectedProvince((prev) => [...prev, prov]);
     }
   }
 
-
-  function clearAllFilter(){
-    setSelectedCategories([])
-    setSelectedProvince([])
+  function clearAllFilter() {
+    setSelectedCategory([]);
+    setSelectedProvince([]);
   }
 
   return (
@@ -33,13 +42,24 @@ export const FilterComponent = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-semibold text-stone-800">Filter Reports</h3>
-            <button
-              onClick={clearAllFilter} 
-              className={`text-sm text-green-600 hover:text-green-700 font-medium
+            <div className="flex justify-between gap-10">
+              <button
+                onClick={clearAllFilter}
+                className={`text-sm text-green-600 hover:text-green-700 font-medium
              `}
-            >
-              Clear All
-            </button>
+              >
+                Clear All
+              </button>
+              <button
+                onClick={() => {
+                  setFiltersOpen(!filtersOpen);
+                }}
+                className={`text-sm text-red-600 hover:text-red-700 font-medium
+             `}
+              >
+                Close
+              </button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -48,18 +68,18 @@ export const FilterComponent = () => {
                 Issue Categories
               </h4>
               <div className="flex flex-wrap gap-2">
-                {ISSUE_CATEGORIES.map((category) => (
+                {ISSUE_CATEGORIES.map((cate) => (
                   <button
-                    key={category}
-                    onClick={() => addCategory(category)}
+                    key={cate}
+                    onClick={() => addCategory(cate)}
                     className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors 
                        ${
-                         selectedCategories.includes(category)
+                         selectedCategory.includes(cate)
                            ? "bg-green-600 text-white"
                            : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"
                        }`}
                   >
-                    {category}
+                    {cate}
                   </button>
                 ))}
               </div>
@@ -70,17 +90,17 @@ export const FilterComponent = () => {
                 Provinces
               </h4>
               <div className="flex flex-wrap gap-2">
-                {Provinces.map((province) => (
+                {Provinces.map((prov) => (
                   <button
-                    key={province}
-                    onClick={() => addProvinces(province)}
+                    key={prov}
+                    onClick={() => addProvinces(prov)}
                     className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                      selectedProvince.includes(province)
+                      selectedProvince.includes(prov)
                         ? "bg-green-600 text-white"
                         : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"
                     }`}
                   >
-                    {province}
+                    {prov}
                   </button>
                 ))}
               </div>

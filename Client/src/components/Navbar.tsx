@@ -2,12 +2,13 @@ import { Leaf, Menu, X, Filter } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FilterComponent } from "./FilterComponent";
+import { useDataContext } from "../Context/FilterContext";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const selectedCategories = ["A", "b"];
-  const selectedProvinces = ["A", "b"];
+  const { selectedCategory, selectedProvince } = useDataContext();
+
 
   const navigate = useNavigate();
 
@@ -46,10 +47,9 @@ export default function Navbar() {
             >
               <Filter className="w-4 h-4" />
               <span>Filters</span>
-              {(selectedCategories.length > 0 ||
-                selectedProvinces.length > 0) && (
+              {(selectedCategory.length > 0 || selectedProvince.length > 0) && (
                 <span className="bg-green-600 text-white text-xs rounded-full px-2 py-0.5">
-                  {selectedCategories.length + selectedProvinces.length}
+                  {selectedCategory.length + selectedProvince.length}
                 </span>
               )}
             </button>
@@ -73,12 +73,18 @@ export default function Navbar() {
           <div className="px-4 py-3 space-y-3">
             <button
               onClick={() => {
-                navigate("/");
+                setFiltersOpen(!filtersOpen);
                 setMobileMenuOpen(false);
               }}
-              className="block w-full text-left px-4 py-2 rounded-lg font-medium text-stone-600 hover:bg-stone-50"
+              className="flex items-center space-x-1 font-medium text-stone-600 hover:text-green-600 transition-colors"
             >
-              Home
+              <Filter className="w-4 h-4" />
+              <span>Filters</span>
+              {(selectedCategory.length > 0 || selectedProvince.length > 0) && (
+                <span className="bg-green-600 text-white text-xs rounded-full px-2 py-0.5">
+                  {selectedCategory.length + selectedProvince.length}
+                </span>
+              )}
             </button>
             <button
               onClick={() => {
@@ -101,7 +107,12 @@ export default function Navbar() {
         </div>
       )}
 
-      {filtersOpen && <FilterComponent />}
+      {filtersOpen && (
+        <FilterComponent
+          setFiltersOpen={setFiltersOpen}
+          filtersOpen={filtersOpen}
+        />
+      )}
     </nav>
   );
 }
