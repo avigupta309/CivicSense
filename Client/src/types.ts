@@ -27,21 +27,25 @@ export type Province =
   | "Sudurpashchim";
 
 export interface Report {
-  id: string;
-  category: IssueCategory;
+  _id: string;
+  category: string;
   description: string;
   photos: string[];
-  province: Province;
+  province: string;
   district: string;
   address: string;
+  imagesUrls: [];
   location: {
     lat: number;
     lng: number;
   };
-  date: string;
-  reporter: {
-    name: string;
+  createdAt: string;
+
+  reporterInfo: {
     email: string;
+    fullName: string;
+    phoneNumber: string;
+    role: string;
     address: string;
   };
 }
@@ -64,7 +68,7 @@ export interface FormReport {
   images: FileList;
 }
 
-export const categoryIcons: Record<IssueCategory, LucideIcon> = {
+export const categoryIcons: Record<string, LucideIcon> = {
   Deforestation: TreePine,
   Landslides: Mountain,
   "River Pollution": Droplets,
@@ -74,7 +78,7 @@ export const categoryIcons: Record<IssueCategory, LucideIcon> = {
   Other: AlertCircle,
 };
 
-export const categoryColors: Record<IssueCategory, string> = {
+export const categoryColors: Record<string, string> = {
   Deforestation: "bg-red-500",
   Landslides: "bg-orange-500",
   "River Pollution": "bg-blue-500",

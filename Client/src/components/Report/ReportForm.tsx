@@ -19,7 +19,7 @@ export default function ReportForm({
   issueForm,
   setIssueForm,
 }: ReportFormProps) {
-  const { handleSubmit, register, setValue } = useForm<FormReport>();
+  const { handleSubmit, register, setValue, reset } = useForm<FormReport>();
   const { location: currentLocation, getLocation } = useMyLocation();
 
   const [province, setProvince] = useState<Province>("Koshi");
@@ -27,7 +27,8 @@ export default function ReportForm({
 
   const onSubmit = async (data: FormReport) => {
     const formData = new FormData();
-    const id = "69e65501af366403dc72ed03";
+    const id = "69ea57bf57392c297142c11c";
+
     formData.append("category", data.category);
     formData.append("province", data.province);
     formData.append("district", data.district);
@@ -51,6 +52,7 @@ export default function ReportForm({
     } catch (error) {
       console.log("Cannot Submit the report ");
     }
+    reset();
   };
 
   useEffect(() => {

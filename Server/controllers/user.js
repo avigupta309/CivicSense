@@ -1,8 +1,7 @@
 import { userModel } from "../models/user.js";
 
 export async function HandleUserSignUp(req, res) {
-  const { fullName, email, phoneNumber, password, role } = req.body;
-  console.log(req.body);
+  const { fullName, email, phoneNumber, password, role, address } = req.body;
   const user = await userModel.findOne({ email: email });
   if (user) return res.status(409).json({ data: "Email is already Exist" });
   try {
@@ -12,6 +11,7 @@ export async function HandleUserSignUp(req, res) {
       role,
       phoneNumber,
       password,
+      address,
     });
     return res.status(201).json({
       message: "SignUp Sucessfully ",
@@ -121,14 +121,3 @@ export async function handleChangeRole(req, res) {
     return res.status(500).json({ message: "Something Went Wrong" });
   }
 }
-
-// export async function ViewOneUSer(req, res) {
-//   const { id } = req.params;
-//   try {
-//     const user = await userModel.findById(id);
-//     if (!user) return res.status(401).json({ data: "plz Select Correct User" });
-//     return res.status(201).json({ data: user });
-//   } catch (error) {
-//     return res.status(500).json({ data: "Something Went Wrong" });
-//   }
-// }

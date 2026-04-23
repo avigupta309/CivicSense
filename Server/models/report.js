@@ -2,21 +2,6 @@ import mongoose, { model, Schema } from "mongoose";
 
 const reportSchema = new Schema(
   {
-    reporter: {
-      type: String,
-      trim: true,
-      required: true,
-    },
-    email: {
-      type: String,
-      trim: true,
-      required: true,
-    },
-    phoneNumber: {
-      type: String,
-      trim: true,
-      required: true,
-    },
     description: {
       type: String,
       trim: true,
@@ -26,6 +11,15 @@ const reportSchema = new Schema(
       type: String,
       trim: true,
       required: true,
+    },
+    province: {
+      type: String,
+    },
+    district: {
+      type: String,
+    },
+    address: {
+      type: String,
     },
     location: {
       lat: {

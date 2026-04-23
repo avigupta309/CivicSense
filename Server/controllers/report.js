@@ -3,29 +3,32 @@ import { userModel } from "../models/user.js";
 import { reportImages } from "../upload/report.js";
 
 export async function SubmitReport(req, res) {
-  const { id, description, location, category } = req.body;
+  const { id, description, location, category, province, district, address } =
+    req.body;
+    // const coordinates=JSON.parse(location)
+    console.log(location)
   try {
     const user = await userModel.findById(id);
     if (!user) return res.status(401).json({ message: "User Not Found" });
-    console.log("here file==", req.files);
     const reportImagesUrl = await reportImages(req);
-    console.log(reportImagesUrl)
     const submitReport = await reportModel.create({
-      reporter: user.fullName,
+      category: category,
+      province: province,
+      district: district,
+      address: address,
       description: description,
-      phoneNumber: user.phoneNumber,
-      email: user.email,
       reporterInfo: id,
       imagesUrls: reportImagesUrl,
       location: {
-        lat: location.lat,
-        lng: location.lng,
+        lat: 26.9094,
+        lng: 87.9282,
+        // lat: coordinates.lat,
+        // lng: coordinates.lng,
       },
-      category: category,
     });
     return res.status(201).json({ message: "Report Submit Sucessfully !!" });
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
     return res.status(404).json({ message: "Something Went Wrong" });
   }
 }
@@ -55,6 +58,19 @@ export async function deleteReport(req, res) {
         .json({ message: "Report is Not Found In DataBase" });
     await reportModel.findByIdAndDelete(id);
     return res.status(200).json({ message: "Report Deleted Sucessfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Something Went Wrong" });
+  }
+}
+
+export async function viewAllReport(req, res) {
+  try {
+    const report = await reportModel.find({});
+    if (!report)
+      return res
+        .status(400)
+        .json({ message: "Report is Not Found In DataBase" });
+    return res.status(200).json({ data: report });
   } catch (error) {
     return res.status(500).json({ message: "Something Went Wrong" });
   }

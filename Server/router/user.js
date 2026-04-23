@@ -18,4 +18,4 @@ userRouter
   .put("/changepassword", changePassword)
   .delete("/del/:id", HandleUserDelete)
   .get("/alluser",viewAllUser)
-  .post('/changerole',handleChangeRole);
+  .post('/changerole/:id',handleChangeRole);

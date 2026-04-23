@@ -4,6 +4,7 @@ import {
   deleteReport,
   reviewReport,
   SubmitReport,
+  viewAllReport,
 } from "../controllers/report.js";
 
 export const reportRouter = Router();
@@ -13,4 +14,5 @@ const upload = multer({ storage });
 reportRouter
   .post("/", upload.array("images", 3), SubmitReport)
   .delete("/del/:id", deleteReport)
-  .get("/viewreport/:id", reviewReport);
+  .get("/viewreport/:id", reviewReport)
+  .get("/viewallreport", viewAllReport);
