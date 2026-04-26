@@ -1,4 +1,5 @@
 import { userModel } from "../models/user.js";
+import { userDP } from "../upload/user.js";
 
 export async function HandleUserSignUp(req, res) {
   const { fullName, email, phoneNumber, password, role, address } = req.body;
@@ -121,3 +122,25 @@ export async function handleChangeRole(req, res) {
     return res.status(500).json({ message: "Something Went Wrong" });
   }
 }
+
+export const changeProfilePic = async (req, res) => {
+  const { id } = req.body;
+  const user = await userModel.findById(id);
+  if (!user) {
+    return res
+      .status(400)
+      .json({ message: "User Not Found To change Profile Image" });
+  }
+
+  try {
+    const profilePicUrl = await userDP(req);
+    user.profileImage = profilePicUrl;
+    user.save();
+    return res.status(200).json({
+      message: "profile pic sucessfully change",
+      name: user.fullName,
+    });
+  } catch (error) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+};

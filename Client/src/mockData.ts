@@ -1,8 +1,8 @@
-import { Report, Province, IssueCategory } from "./types";
+import {  Province, IssueCategory } from "./types";
 
-export const mockReports: Report[] = [
+export const mockReports = [
   {
-    id: "1",
+    _id: "1",
     category: "Deforestation",
     description:
       "Large-scale deforestation observed near the community forest. Several trees have been cut down illegally.",
@@ -14,11 +14,15 @@ export const mockReports: Report[] = [
     district: "Kathmandu",
     address: "Shivapuri National Park Area",
     location: { lat: 27.7833, lng: 85.3833 },
-    date: "2025-12-28",
-    reporter: { name: "Rajesh Shrestha", email: "rajesh@example.com" ,address:"Baneshwar"},
+    createdAt: "2025-12-28",
+    reporterInfo: {
+      fullName: "Rajesh Shrestha",
+      email: "rajesh@example.com",
+      address: "Baneshwar",
+    },
   },
   {
-    id: "2",
+    _id: "2",
     category: "River Pollution",
     description:
       "Industrial waste being dumped directly into Bagmati River. Strong chemical odor detected.",
@@ -30,7 +34,11 @@ export const mockReports: Report[] = [
     address: "Bagmati River, Balkhu Bridge",
     location: { lat: 27.6833, lng: 85.2833 },
     date: "2025-12-29",
-    reporter: { name: "Sita Rai", email: "sita@example.com" ,address:"Lalitpur"},
+    reporter: {
+      name: "Sita Rai",
+      email: "sita@example.com",
+      address: "Lalitpur",
+    },
   },
   {
     id: "3",
@@ -46,7 +54,11 @@ export const mockReports: Report[] = [
     address: "Near Fewa Lake Shore",
     location: { lat: 28.2096, lng: 83.9856 },
     date: "2025-12-30",
-    reporter: { name: "Anil Gurung", email: "anil@example.com" ,address:"Pokhara"},
+    reporter: {
+      name: "Anil Gurung",
+      email: "anil@example.com",
+      address: "Pokhara",
+    },
   },
   {
     id: "4",
@@ -61,7 +73,11 @@ export const mockReports: Report[] = [
     address: "Bardiya Forest Area",
     location: { lat: 28.6, lng: 81.6167 },
     date: "2025-12-31",
-    reporter: { name: "Maya Thapa", email: "maya@example.com" ,address:"Surkhet"},
+    reporter: {
+      name: "Maya Thapa",
+      email: "maya@example.com",
+      address: "Surkhet",
+    },
   },
   {
     id: "5",
@@ -76,7 +92,11 @@ export const mockReports: Report[] = [
     address: "Dharan-Dhankuta Highway",
     location: { lat: 26.9833, lng: 87.3333 },
     date: "2025-12-27",
-    reporter: { name: "Krishna Limbu", email: "krishna@example.com" ,address:"Dhankuta"},
+    reporter: {
+      name: "Krishna Limbu",
+      email: "krishna@example.com",
+      address: "Dhankuta",
+    },
   },
   {
     id: "6",
@@ -90,7 +110,11 @@ export const mockReports: Report[] = [
     address: "Api Nampa Conservation Area",
     location: { lat: 29.8167, lng: 80.5667 },
     date: "2025-12-26",
-    reporter: { name: "Binod Bista", email: "binod@example.com",address:"Darchula" },
+    reporter: {
+      name: "Binod Bista",
+      email: "binod@example.com",
+      address: "Darchula",
+    },
   },
 ];
 
@@ -188,7 +212,7 @@ export const districtsByProvince: Record<Province, string[]> = {
   ],
 };
 
-export const ISSUE_CATEGORIES:IssueCategory[] = [
+export const ISSUE_CATEGORIES: IssueCategory[] = [
   "Deforestation",
   "Landslides",
   "River Pollution",
@@ -198,7 +222,7 @@ export const ISSUE_CATEGORIES:IssueCategory[] = [
   "Other",
 ];
 
-export const Provinces:Province[] = [
+export const Provinces: Province[] = [
   "Koshi",
   "Madhesh",
   "Bagmati",

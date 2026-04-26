@@ -19,7 +19,13 @@ export default function ReportForm({
   issueForm,
   setIssueForm,
 }: ReportFormProps) {
-  const { handleSubmit, register, setValue, reset } = useForm<FormReport>();
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormReport>();
   const { location: currentLocation, getLocation } = useMyLocation();
 
   const [province, setProvince] = useState<Province>("Koshi");
@@ -53,6 +59,7 @@ export default function ReportForm({
       console.log("Cannot Submit the report ");
     }
     reset();
+    setPhotos([]);
   };
 
   useEffect(() => {
@@ -217,7 +224,7 @@ export default function ReportForm({
               type="submit"
               className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
             >
-              Submit Report
+              {isSubmitting ? "Submitting....." : "Submit Report"}
             </button>
           </div>
         </form>

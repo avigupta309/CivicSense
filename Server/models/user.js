@@ -53,7 +53,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function () {
   const currentuser = this;
-  if (!currentuser.isModified("password")) return next();
+  if (!currentuser.isModified("password")) return;
   const salt = randomBytes(16).toString("hex");
   const hashPassword = createHmac("sha256", salt)
     .update(currentuser.password)

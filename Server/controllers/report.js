@@ -5,27 +5,27 @@ import { reportImages } from "../upload/report.js";
 export async function SubmitReport(req, res) {
   const { id, description, location, category, province, district, address } =
     req.body;
-    // const coordinates=JSON.parse(location)
-    console.log(location)
+    const coordinates=JSON.parse(location)
+    console.log(coordinates)
   try {
-    const user = await userModel.findById(id);
-    if (!user) return res.status(401).json({ message: "User Not Found" });
-    const reportImagesUrl = await reportImages(req);
-    const submitReport = await reportModel.create({
-      category: category,
-      province: province,
-      district: district,
-      address: address,
-      description: description,
-      reporterInfo: id,
-      imagesUrls: reportImagesUrl,
-      location: {
-        lat: 26.9094,
-        lng: 87.9282,
-        // lat: coordinates.lat,
-        // lng: coordinates.lng,
-      },
-    });
+    // const user = await userModel.findById(id);
+    // if (!user) return res.status(401).json({ message: "User Not Found" });
+    // const reportImagesUrl = await reportImages(req);
+    // const submitReport = await reportModel.create({
+    //   category: category,
+    //   province: province,
+    //   district: district,
+    //   address: address,
+    //   description: description,
+    //   reporterInfo: id,
+    //   imagesUrls: reportImagesUrl,
+    //   location: {
+    //     lat: 26.9094,
+    //     lng: 87.9282,
+    //     // lat: coordinates.lat,
+    //     // lng: coordinates.lng,
+    //   },
+    // });
     return res.status(201).json({ message: "Report Submit Sucessfully !!" });
   } catch (error) {
     console.log(error.message);
