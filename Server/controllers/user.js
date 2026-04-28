@@ -1,4 +1,5 @@
 import { userModel } from "../models/user.js";
+import { createToken } from "../service/user.js";
 import { userDP } from "../upload/user.js";
 
 export async function HandleUserSignUp(req, res) {
@@ -33,6 +34,15 @@ export async function HandleLogin(req, res) {
   if (!user) return res.status(404).json({ data: "Email is Not registred" });
   try {
     const isMatchPassword = await user.matchPassword(password);
+    const token=createToken(isMatchPassword)
+    console.log("logn......")
+    console.log("token====",token)
+    res.cookie("userToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
     return res.status(200).json({
       data: "SignIn Sucessfully ",
       user: {
@@ -43,6 +53,8 @@ export async function HandleLogin(req, res) {
       },
     });
   } catch (error) {
+    console.log("here is error message")
+    console.log(error.message)
     return res.status(401).json({ message: "Password not match..." });
   }
 }
