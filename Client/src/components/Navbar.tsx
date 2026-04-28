@@ -29,7 +29,13 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <button
+            <button className="bg-rose-500 hover:bg-rose-600 px-4 py-2 rounded-lg text-white">
+              Login
+            </button>
+            <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white">
+              SignUp
+            </button>
+            {/* <button
               onClick={() => navigate("/")}
               className="font-medium transition-colors hover:text-red-600"
             >
@@ -52,7 +58,7 @@ export default function Navbar() {
                   {selectedCategory.length + selectedProvince.length}
                 </span>
               )}
-            </button>
+            </button> */}
           </div>
 
           <button

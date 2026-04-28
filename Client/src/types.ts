@@ -50,9 +50,18 @@ export interface Report {
   };
 }
 
-export interface User {
-  name: string;
+export interface LoginProps {
+  password: string;
   email: string;
+}
+export interface signUpProps {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  profileImage: string;
+  password: string;
+  confirmPassword: string;
 }
 
 export interface FormReport {

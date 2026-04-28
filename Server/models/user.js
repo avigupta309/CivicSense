@@ -46,6 +46,7 @@ const userSchema = new Schema(
     profileImage: {
       type: String,
       trim: true,
+      default: "Profile image not Submit yet",
     },
   },
   { timestamps: true },

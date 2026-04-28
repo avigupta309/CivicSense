@@ -5,6 +5,7 @@ export async function HandleUserSignUp(req, res) {
   const { fullName, email, phoneNumber, password, role, address } = req.body;
   const user = await userModel.findOne({ email: email });
   if (user) return res.status(409).json({ data: "Email is already Exist" });
+  const profileImageUrl = await userDP(req);
   try {
     await userModel.create({
       fullName,
@@ -13,6 +14,7 @@ export async function HandleUserSignUp(req, res) {
       phoneNumber,
       password,
       address,
+      // profileImage:
     });
     return res.status(201).json({
       message: "SignUp Sucessfully ",
