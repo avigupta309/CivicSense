@@ -35,8 +35,6 @@ export async function HandleLogin(req, res) {
   try {
     const isMatchPassword = await user.matchPassword(password);
     const token=createToken(isMatchPassword)
-    console.log("logn......")
-    console.log("token====",token)
     res.cookie("userToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -53,8 +51,6 @@ export async function HandleLogin(req, res) {
       },
     });
   } catch (error) {
-    console.log("here is error message")
-    console.log(error.message)
     return res.status(401).json({ message: "Password not match..." });
   }
 }

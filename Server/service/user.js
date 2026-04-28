@@ -4,7 +4,6 @@ configDotenv();
 const secretKey = process.env.SECRET_KEY;
 
 export function createToken(user) {
-    console.log(secretKey)
   try {
     const userPayload = {
       id: user._id,
@@ -12,11 +11,8 @@ export function createToken(user) {
     };
 
     const token = jwt.sign(userPayload, secretKey);
-    console.log("here...-----");
     return token;
   } catch (error) {
-    console.log("here is error message 22");
-    console.log(error.message)
     throw new Error("Something went Wrong While Making token");
   }
 }
