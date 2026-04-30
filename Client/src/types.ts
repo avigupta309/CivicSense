@@ -47,6 +47,7 @@ export interface Report {
     phoneNumber: string;
     role: string;
     address: string;
+    profileImage: string;
   };
 }
 

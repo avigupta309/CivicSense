@@ -3,10 +3,12 @@ import { createToken } from "../service/user.js";
 import { userDP } from "../upload/user.js";
 
 export async function HandleUserSignUp(req, res) {
+  console.log(req.body)
   const { fullName, email, phoneNumber, password, role, address } = req.body;
   const user = await userModel.findOne({ email: email });
   if (user) return res.status(409).json({ data: "Email is already Exist" });
-  const profileImageUrl = await userDP(req);
+  const profileImage = await userDP(req);
+
   try {
     await userModel.create({
       fullName,
@@ -15,7 +17,7 @@ export async function HandleUserSignUp(req, res) {
       phoneNumber,
       password,
       address,
-      // profileImage:
+      profileImage
     });
     return res.status(201).json({
       message: "SignUp Sucessfully ",

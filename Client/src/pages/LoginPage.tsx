@@ -20,6 +20,7 @@ export default function LoginPage() {
         data,
         { withCredentials: true },
       );
+      navigate("/");
       console.log(response.data.user);
     } catch (error) {}
   };

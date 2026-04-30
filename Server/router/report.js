@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import {
+  debouncedSearch,
   deleteReport,
   reviewReport,
   SubmitReport,
@@ -15,4 +16,5 @@ reportRouter
   .post("/", upload.array("images", 3), SubmitReport)
   .delete("/del/:id", deleteReport)
   .get("/viewreport/:id", reviewReport)
-  .get("/viewallreport", viewAllReport);
+  .get("/viewallreport", viewAllReport)
+  .post("/debounse", debouncedSearch);

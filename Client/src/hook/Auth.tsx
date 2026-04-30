@@ -1,25 +1,31 @@
-import { useEffect } from "react";
-import { useDataContext } from "../Context/FilterContext";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDataContext } from "../Context/FilterContext";
 
-export const CheckAuthUser = () => {
+const AuthUser = () => {
   const { setUser } = useDataContext();
-
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await axios.get("http://localhost:3000", {
-          withCredentials: true,
+    try {
+      axios
+        .get("http://localhost:3000/", { withCredentials: true })
+        .then((res) => {
+          if (res.status === 200) {
+            setIsAuthenticated(true);
+          }
+          const user = res.data.data;
+          console.log(user)
+          setUser(user);
+        })
+        .catch((er) => {
+          console.log(er.message);
         });
-
-        setUser(response.data.user); 
-      } catch (error) {
-        setUser(null);
-      }
+    } catch (error) {
+      console.log(error);
     }
+  }, []);
 
-    fetchUser(); 
-  }, [setUser]);
-
-  return null;
+  return isAuthenticated;
 };
+
+export { AuthUser };

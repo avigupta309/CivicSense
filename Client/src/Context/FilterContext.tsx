@@ -8,6 +8,9 @@ interface childrenProps {
 interface userProps {
   id: string;
   role: string;
+  fullName: string;
+  phoneNumber: string;
+  profileImage: string;
 }
 interface contextTypeProps {
   selectedCategory: IssueCategory[];

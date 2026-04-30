@@ -16,6 +16,7 @@ export default function SignupPage() {
     console.log(data);
     try {
       const response = await axios.post("http://localhost:3000/api/user", data);
+      navigate("/login");
       console.log(response.data);
     } catch (error: any) {
       console.log(error.message);

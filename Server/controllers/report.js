@@ -5,27 +5,26 @@ import { reportImages } from "../upload/report.js";
 export async function SubmitReport(req, res) {
   const { id, description, location, category, province, district, address } =
     req.body;
-    const coordinates=JSON.parse(location)
-    console.log(coordinates)
+
+  const coordinates = JSON.parse(location);
+
   try {
-    // const user = await userModel.findById(id);
-    // if (!user) return res.status(401).json({ message: "User Not Found" });
-    // const reportImagesUrl = await reportImages(req);
-    // const submitReport = await reportModel.create({
-    //   category: category,
-    //   province: province,
-    //   district: district,
-    //   address: address,
-    //   description: description,
-    //   reporterInfo: id,
-    //   imagesUrls: reportImagesUrl,
-    //   location: {
-    //     lat: 26.9094,
-    //     lng: 87.9282,
-    //     // lat: coordinates.lat,
-    //     // lng: coordinates.lng,
-    //   },
-    // });
+    const user = await userModel.findById(id);
+    if (!user) return res.status(401).json({ message: "User Not Found" });
+    const reportImagesUrl = await reportImages(req);
+    const submitReport = await reportModel.create({
+      category: category,
+      province: province,
+      district: district,
+      address: address,
+      description: description,
+      reporterInfo: id,
+      imagesUrls: reportImagesUrl,
+      location: {
+        lat: coordinates.latww | 27.700769,
+        lng: coordinates.lngww | 85.30014,
+      },
+    });
     return res.status(201).json({ message: "Report Submit Sucessfully !!" });
   } catch (error) {
     console.log(error.message);
@@ -70,6 +69,24 @@ export async function viewAllReport(req, res) {
       return res
         .status(400)
         .json({ message: "Report is Not Found In DataBase" });
+    return res.status(200).json({ data: report });
+  } catch (error) {
+    return res.status(500).json({ message: "Something Went Wrong" });
+  }
+}
+
+export async function debouncedSearch(req, res) {
+  const { searchTerm } = req.body;
+
+  try {
+    const report = await reportModel.find({
+      $or: [
+        { province: { $regex: searchTerm, $options: "i" } },
+        { district: { $regex: searchTerm, $options: "i" } },
+        { category: { $regex: searchTerm, $options: "i" } },
+      ],
+    });
+
     return res.status(200).json({ data: report });
   } catch (error) {
     return res.status(500).json({ message: "Something Went Wrong" });

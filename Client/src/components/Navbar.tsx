@@ -3,12 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FilterComponent } from "./FilterComponent";
 import { useDataContext } from "../Context/FilterContext";
+import { AuthUser } from "../hook/Auth";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const { selectedCategory, selectedProvince } = useDataContext();
-
+  const { selectedCategory, selectedProvince, user } = useDataContext();
+  const isAuthenticated = AuthUser();
 
   const navigate = useNavigate();
 
@@ -28,49 +29,80 @@ export default function Navbar() {
             </span>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            <button className="bg-rose-500 hover:bg-rose-600 px-4 py-2 rounded-lg text-white">
-              Login
-            </button>
-            <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white">
-              SignUp
-            </button>
-            {/* <button
-              onClick={() => navigate("/")}
-              className="font-medium transition-colors hover:text-red-600"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => navigate("/reports")}
-              className="font-medium transition-colors hover:text-green-600"
-            >
-              Reports
-            </button>
-            <button
-              onClick={() => setFiltersOpen(!filtersOpen)}
-              className="flex items-center space-x-1 font-medium text-stone-600 hover:text-green-600 transition-colors"
-            >
-              <Filter className="w-4 h-4" />
-              <span>Filters</span>
-              {(selectedCategory.length > 0 || selectedProvince.length > 0) && (
-                <span className="bg-green-600 text-white text-xs rounded-full px-2 py-0.5">
-                  {selectedCategory.length + selectedProvince.length}
-                </span>
-              )}
-            </button> */}
-          </div>
-
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-stone-600 hover:bg-stone-100"
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
+          <div className="">
+            {isAuthenticated ? (
+              <div className="hidden md:flex items-center space-x-8">
+                <button
+                  onClick={() => navigate("/")}
+                  className="font-medium transition-colors hover:text-red-600"
+                >
+                  Home
+                </button>
+                <button
+                  onClick={() => navigate("/reports")}
+                  className="font-medium transition-colors hover:text-green-600"
+                >
+                  Reports
+                </button>
+                <button
+                  onClick={() => setFiltersOpen(!filtersOpen)}
+                  className="flex items-center space-x-1 font-medium text-stone-600 hover:text-green-600 transition-colors"
+                >
+                  <Filter className="w-4 h-4" />
+                  <span>Filters</span>
+                  {(selectedCategory.length > 0 ||
+                    selectedProvince.length > 0) && (
+                    <span className="bg-green-600 text-white text-xs rounded-full px-2 py-0.5">
+                      {selectedCategory.length + selectedProvince.length}
+                    </span>
+                  )}
+                </button>
+                <div className="">
+                  <img
+                    className="w-12 h-12 rounded-full object-cover"
+                    src={user?.profileImage}
+                    alt=""
+                  />
+                </div>
+              </div>
             ) : (
-              <Menu className="w-6 h-6" />
+              <div className="hidden md:flex gap-x-5">
+                <button
+                  className="bg-rose-500 hover:bg-rose-600 px-4 py-2 rounded-lg text-white"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Login
+                </button>
+                <button
+                  className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
+                  SignUp
+                </button>
+              </div>
             )}
-          </button>
+          </div>
+          <div className="md:hidden flex justify-center">
+            <img
+              className="w-12 h-12 rounded-full object-cover"
+              src={user?.profileImage}
+              alt=""
+            />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg text-stone-600 hover:bg-stone-100"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
