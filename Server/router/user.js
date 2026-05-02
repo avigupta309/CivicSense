@@ -8,7 +8,7 @@ import {
   ViewOneUSer,
   HandleUserSignUp,
   viewAllUser,
-  changeProfilePic,
+  handleUserEditInfo,
 } from "../controllers/user.js";
 export const userRouter = Router();
 const storage = multer.memoryStorage();
@@ -22,4 +22,4 @@ userRouter
   .delete("/del/:id", HandleUserDelete)
   .get("/alluser", viewAllUser)
   .post("/changerole/:id", handleChangeRole)
-  .post("/profilepic", upload.single("profilePic"), changeProfilePic);
+  .post("/edituser", upload.single("profilePic"), handleUserEditInfo);

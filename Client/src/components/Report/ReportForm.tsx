@@ -10,6 +10,8 @@ import { HandlePhotosUpload } from "./HandlePhotosUpload";
 import { useForm } from "react-hook-form";
 import { useMyLocation } from "./myLocation";
 import axios from "axios";
+import { useDataContext } from "../../Context/FilterContext";
+import { toast } from "react-toastify";
 interface ReportFormProps {
   setIssueForm: (data: boolean) => void;
   issueForm: boolean;
@@ -27,14 +29,14 @@ export default function ReportForm({
     formState: { errors, isSubmitting },
   } = useForm<FormReport>();
   const { location: currentLocation, getLocation } = useMyLocation();
+  const { user } = useDataContext();
 
   const [province, setProvince] = useState<Province>("Koshi");
   const [photos, setPhotos] = useState<File[]>([]);
 
   const onSubmit = async (data: FormReport) => {
     const formData = new FormData();
-    const id = "69ea57bf57392c297142c11c";
-
+    const id = user?._id as string;
     formData.append("category", data.category);
     formData.append("province", data.province);
     formData.append("district", data.district);
@@ -55,6 +57,7 @@ export default function ReportForm({
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success(`Report Submit Sucessfully about ${data.category}`)
     } catch (error) {
       console.log("Cannot Submit the report ");
     }
@@ -98,7 +101,7 @@ export default function ReportForm({
                 Issue Category
               </label>
               <select
-                {...register("category")}
+                {...register("category", { required: "Category is required" })}
                 className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
                 required
               >
@@ -109,6 +112,11 @@ export default function ReportForm({
                   </option>
                 ))}
               </select>
+              {errors.category && (
+                <p className="text-red-500 text-sm mt-1">
+                  Category is required
+                </p>
+              )}
             </div>
 
             <div>
@@ -116,7 +124,7 @@ export default function ReportForm({
                 Province
               </label>
               <select
-                {...register("province")}
+                {...register("province", { required: "Province is required" })}
                 value={province}
                 onChange={(e) => {
                   setProvince(e.target.value as Province);
@@ -131,6 +139,11 @@ export default function ReportForm({
                   </option>
                 ))}
               </select>
+              {errors.province && (
+                <p className="text-red-500 text-sm mt-1">
+                  Province is required
+                </p>
+              )}
             </div>
 
             <div>
@@ -138,7 +151,7 @@ export default function ReportForm({
                 District
               </label>
               <select
-                {...register("district")}
+                {...register("district", { required: "District is required" })}
                 className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
                 required
               >
@@ -149,6 +162,11 @@ export default function ReportForm({
                   </option>
                 ))}
               </select>
+              {errors.district && (
+                <p className="text-red-500 text-sm mt-1">
+                  District is required
+                </p>
+              )}
             </div>
 
             <div>
@@ -156,13 +174,16 @@ export default function ReportForm({
                 Exact Address
               </label>
               <input
-                {...register("address")}
+                {...register("address", { required: "Address is required" })}
                 type="text"
                 className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
                 placeholder="Street name, landmark, etc."
                 required
               />
             </div>
+            {errors.address && (
+              <p className="text-red-500 text-sm mt-1">Address is required</p>
+            )}
           </div>
 
           <div>
@@ -170,12 +191,19 @@ export default function ReportForm({
               Description
             </label>
             <textarea
-              {...register("description")}
+              {...register("description", {
+                required: "Description is required",
+              })}
               rows={4}
               className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none"
               placeholder="Provide detailed information about the environmental issue..."
               required
             />
+            {errors.description && (
+              <p className="text-red-500 text-sm mt-1">
+                Description is required
+              </p>
+            )}
           </div>
 
           <HandlePhotosUpload photos={photos} setPhotos={setPhotos} />

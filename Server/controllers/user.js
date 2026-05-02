@@ -3,7 +3,7 @@ import { createToken } from "../service/user.js";
 import { userDP } from "../upload/user.js";
 
 export async function HandleUserSignUp(req, res) {
-  console.log(req.body)
+  console.log(req.body);
   const { fullName, email, phoneNumber, password, role, address } = req.body;
   const user = await userModel.findOne({ email: email });
   if (user) return res.status(409).json({ data: "Email is already Exist" });
@@ -17,7 +17,7 @@ export async function HandleUserSignUp(req, res) {
       phoneNumber,
       password,
       address,
-      profileImage
+      profileImage,
     });
     return res.status(201).json({
       message: "SignUp Sucessfully ",
@@ -36,7 +36,7 @@ export async function HandleLogin(req, res) {
   if (!user) return res.status(404).json({ data: "Email is Not registred" });
   try {
     const isMatchPassword = await user.matchPassword(password);
-    const token=createToken(isMatchPassword)
+    const token = createToken(isMatchPassword);
     res.cookie("userToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -135,8 +135,8 @@ export async function handleChangeRole(req, res) {
   }
 }
 
-export const changeProfilePic = async (req, res) => {
-  const { id } = req.body;
+export const handleUserEditInfo = async (req, res) => {
+  const { id, fullName, address } = req.body;
   const user = await userModel.findById(id);
   if (!user) {
     return res
@@ -144,9 +144,19 @@ export const changeProfilePic = async (req, res) => {
       .json({ message: "User Not Found To change Profile Image" });
   }
 
+  if (fullName?.trim()) {
+    user.fullName = fullName;
+  }
+
+  if (address?.trim()) {
+    user.address = address;
+  }
+
   try {
-    const profilePicUrl = await userDP(req);
-    user.profileImage = profilePicUrl;
+    if (req.file) {
+      const profilePicUrl = await userDP(req);
+      user.profileImage = profilePicUrl;
+    }
     user.save();
     return res.status(200).json({
       message: "profile pic sucessfully change",

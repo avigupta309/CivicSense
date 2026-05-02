@@ -6,7 +6,7 @@ interface childrenProps {
 }
 
 interface userProps {
-  id: string;
+  _id: string;
   role: string;
   fullName: string;
   phoneNumber: string;

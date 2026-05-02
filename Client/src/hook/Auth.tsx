@@ -14,7 +14,6 @@ const AuthUser = () => {
             setIsAuthenticated(true);
           }
           const user = res.data.data;
-          console.log(user)
           setUser(user);
         })
         .catch((er) => {
