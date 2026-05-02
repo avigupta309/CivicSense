@@ -5,10 +5,12 @@ import { ReportList } from "./pages/Report/ReportList";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { AuthUser } from "../src/hook/Auth";
+import { ToastContainer } from "react-toastify";
 export const App = () => {
   const isAuthenticated = AuthUser();
   return (
     <>
+      <ToastContainer draggable />
       <div className="">
         <Navbar />
       </div>

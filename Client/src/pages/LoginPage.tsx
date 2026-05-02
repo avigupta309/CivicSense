@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { LoginProps } from "../types";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const {
@@ -13,16 +14,15 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const onSubmit = async (data: LoginProps) => {
-    console.log(data);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/user/login",
-        data,
-        { withCredentials: true },
-      );
+      await axios.post("http://localhost:3000/api/user/login", data, {
+        withCredentials: true,
+      });
+      toast.success("Login SucessFul");
       navigate("/");
-      console.log(response.data.user);
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Wrong Password !!");
+    }
   };
 
   return (

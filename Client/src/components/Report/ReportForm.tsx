@@ -19,7 +19,6 @@ export default function ReportForm({
   issueForm,
   setIssueForm,
 }: ReportFormProps) {
-
   const {
     handleSubmit,
     register,
@@ -222,11 +221,15 @@ export default function ReportForm({
               Cancel
             </button>
             <button
-            disabled={isSubmitting}
+              disabled={isSubmitting}
               type="submit"
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+              className={`px-6 py-3 w-40 rounded-lg  ${isSubmitting ? "bg-gray-400 hover:bg-gray-500 text-gray-700" : "bg-green-600 text-white hover:bg-green-700"} transition-colors font-medium`}
             >
-              {isSubmitting ? "Submitting....." : "Submit Report"}
+              {isSubmitting ? (
+                <span className="loading loading-spinner text-success text-white"></span>
+              ) : (
+                <span>Submit Report</span>
+              )}
             </button>
           </div>
         </form>
