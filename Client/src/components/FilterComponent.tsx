@@ -1,18 +1,25 @@
 import { ISSUE_CATEGORIES, Provinces } from "../mockData";
-import { useDataContext } from "../Context/FilterContext";
+import { useDataContext } from "../Context/ContextApi";
 import { IssueCategory, Province } from "../types";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface filterBarToggle {
   setFiltersOpen: (data: boolean) => void;
   filtersOpen: boolean;
 }
 
-export const FilterComponent = ({ setFiltersOpen ,filtersOpen}: filterBarToggle) => {
+export const FilterComponent = ({
+  setFiltersOpen,
+  filtersOpen,
+}: filterBarToggle) => {
+  const [filterKeyWord, setFilterKeyWord] = useState<string[]>([]);
   const {
     selectedCategory,
     selectedProvince,
     setSelectedCategory,
     setSelectedProvince,
+    setFilterReport,
   } = useDataContext();
 
   function addCategory(cate: IssueCategory) {
@@ -35,6 +42,25 @@ export const FilterComponent = ({ setFiltersOpen ,filtersOpen}: filterBarToggle)
     setSelectedCategory([]);
     setSelectedProvince([]);
   }
+
+  useEffect(() => {
+    setFilterKeyWord(() => [...selectedCategory, ...selectedProvince]);
+  }, [selectedCategory, selectedProvince]);
+  console.log(filterKeyWord);
+
+  useEffect(() => {
+    async function fetchFilterreports() {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/report/filterdebounce",
+          { filterKeyWord },
+        );
+        console.log(response.data.data);
+        setFilterReport(response.data.data);
+      } catch (error) {}
+    }
+    fetchFilterreports();
+  }, [filterKeyWord]);
 
   return (
     <>

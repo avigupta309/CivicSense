@@ -11,6 +11,7 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDataContext } from "../Context/ContextApi";
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -38,6 +39,7 @@ const createCategoryIcon = (category: string) => {
 
 export const MapComponent: React.FC = () => {
   const [reports, setReports] = useState<Report[]>([]);
+  const { filterReport } = useDataContext();
   useEffect(() => {
     async function extractReport() {
       try {
@@ -51,6 +53,14 @@ export const MapComponent: React.FC = () => {
     }
     extractReport();
   }, []);
+
+  useEffect(() => {
+    if (filterReport.length > 0) {
+      setReports(() => [...filterReport]);
+    } else {
+      setReports([]);
+    }
+  }, [filterReport]);
 
   return (
     <div className="fixed inset-0 z-0 h-full w-full pt-14">
@@ -66,7 +76,7 @@ export const MapComponent: React.FC = () => {
         />
 
         {reports.length > 0 &&
-          reports.map((report,i) => (
+          reports.map((report, i) => (
             <Marker
               key={i}
               position={[report.location.lat, report.location.lng]}

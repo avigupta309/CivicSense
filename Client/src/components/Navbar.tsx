@@ -2,7 +2,7 @@ import { Leaf, Menu, X, Filter } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FilterComponent } from "./FilterComponent";
-import { useDataContext } from "../Context/FilterContext";
+import { useDataContext } from "../Context/ContextApi";
 import { AuthUser } from "../hook/Auth";
 
 export default function Navbar() {

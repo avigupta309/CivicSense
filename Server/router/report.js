@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 import {
   debouncedSearch,
+  debounceFilter,
   deleteReport,
   reviewReport,
   SubmitReport,
@@ -17,4 +18,5 @@ reportRouter
   .delete("/del/:id", deleteReport)
   .get("/viewreport/:id", reviewReport)
   .get("/viewallreport", viewAllReport)
-  .post("/debounse", debouncedSearch);
+  .post("/searchdebounse", debouncedSearch)
+  .post("/filterdebounce", debounceFilter);

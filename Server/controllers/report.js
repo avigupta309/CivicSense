@@ -79,18 +79,48 @@ export async function viewAllReport(req, res) {
 
 export async function debouncedSearch(req, res) {
   const { searchTerm } = req.body;
+  let report;
 
   try {
-    const report = await reportModel.find({
-      $or: [
-        { province: { $regex: searchTerm, $options: "i" } },
-        { district: { $regex: searchTerm, $options: "i" } },
-        { category: { $regex: searchTerm, $options: "i" } },
-      ],
-    });
+    if (searchTerm.trim()) {
+      report = await reportModel.find({
+        $or: [
+          { province: { $regex: searchTerm, $options: "i" } },
+          { district: { $regex: searchTerm, $options: "i" } },
+          { category: { $regex: searchTerm, $options: "i" } },
+        ],
+      });
+    } else {
+      report = await reportModel.find({});
+    }
+    return res.status(200).json({ data: report });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: "Something Went Wrong" });
+  }
+}
+
+export async function debounceFilter(req, res) {
+  const { filterKeyWord } = req.body;
+  let report;
+
+  try {
+    if (filterKeyWord.length > 0) {
+      report = await reportModel.find({
+        $or: [
+          { category: { $in: filterKeyWord } },
+          { province: { $in: filterKeyWord } },
+          { district: { $in: filterKeyWord } },
+        ],
+      });
+    } else {
+      report = await reportModel.find({});
+    }
+    
 
     return res.status(200).json({ data: report });
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: "Something Went Wrong" });
   }
 }
