@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { FilterComponent } from "./FilterComponent";
 import { useDataContext } from "../Context/ContextApi";
 import { AuthUser } from "../hook/Auth";
+import { DropDownButton } from "./DropDownButton";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [showDropMenu, setShowDropMenu] = useState<boolean>(false);
   const { selectedCategory, selectedProvince, user } = useDataContext();
   const isAuthenticated = AuthUser();
 
@@ -33,10 +35,10 @@ export default function Navbar() {
             {isAuthenticated ? (
               <div className="hidden md:flex items-center space-x-8">
                 <button
-                  onClick={() => navigate("/")}
-                  className="font-medium transition-colors hover:text-red-600"
+                  onClick={() => navigate("/about-us")}
+                  className="font-medium transition-colors hover:text-green-600"
                 >
-                  Home
+                  About-Us
                 </button>
                 <button
                   onClick={() => navigate("/reports")}
@@ -57,12 +59,18 @@ export default function Navbar() {
                     </span>
                   )}
                 </button>
-                <div className="">
+                <div
+                  onClick={() => {
+                    setShowDropMenu(!showDropMenu);
+                  }}
+                  className="cursor-pointer"
+                >
                   <img
                     className="w-12 h-12 rounded-full object-cover"
                     src={user?.profileImage}
                     alt=""
                   />
+                  {showDropMenu && <DropDownButton />}
                 </div>
               </div>
             ) : (

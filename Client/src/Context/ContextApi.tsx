@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { IssueCategory, Province ,Report} from "../types";
+import { IssueCategory, Province, Report } from "../types";
 
 interface childrenProps {
   children: React.ReactNode;
@@ -11,6 +11,9 @@ interface userProps {
   fullName: string;
   phoneNumber: string;
   profileImage: string;
+  email: string;
+  address: string;
+  updatedAt:string
 }
 interface contextTypeProps {
   selectedCategory: IssueCategory[];

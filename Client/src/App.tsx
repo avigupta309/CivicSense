@@ -6,6 +6,8 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { AuthUser } from "../src/hook/Auth";
 import { ToastContainer } from "react-toastify";
+// import {UserProfile} from "../src/pages/";
+import { UserProfile } from "./User/main";
 export const App = () => {
   const isAuthenticated = AuthUser();
   return (
@@ -22,6 +24,7 @@ export const App = () => {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </>
   );
