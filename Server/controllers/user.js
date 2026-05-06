@@ -69,23 +69,23 @@ export async function ViewOneUSer(req, res) {
 }
 
 export async function changePassword(req, res) {
-  const { email, oldpassword, newpassword } = req.body;
+  const { id, currentPassword, newPassword } = req.body;
   try {
-    const user = await userModel.findOne({ email });
-    if (!user) return res.status(400).json({ data: "Enter Valid Email" });
-    user.matchPassword(oldpassword);
-
-    if (newpassword === oldpassword) {
+    const user = await userModel.findById(id);
+    if (!user) return res.status(400).json({ data: "User Not Found" });
+    user.matchPassword(currentPassword);
+    if (newPassword === currentPassword) {
       return res.status(400).json({
         message: "New password cannot be same as old password",
       });
     }
-    user.password = newpassword.trim();
+    user.password = newPassword.trim();
     await user.save();
     return res.status(200).json({
       data: "Password Changed Successfully",
     });
   } catch (error) {
+    console.log("errormessage : ",error.message);
     return res.status(401).json({
       message: error.message || "Something Went Wrong",
     });
@@ -129,6 +129,7 @@ export async function handleChangeRole(req, res) {
       { role },
       { new: true, runValidators: true },
     );
+
     return res.status(201).json({ message: updatedUser });
   } catch (error) {
     return res.status(500).json({ message: "Something Went Wrong" });
@@ -137,6 +138,7 @@ export async function handleChangeRole(req, res) {
 
 export const handleUserEditInfo = async (req, res) => {
   const { id, fullName, address } = req.body;
+  console.log(req.body);
   const user = await userModel.findById(id);
   if (!user) {
     return res

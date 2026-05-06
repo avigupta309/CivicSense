@@ -97,3 +97,14 @@ export const categoryColors: Record<string, string> = {
   "Wildlife Threats": "bg-green-500",
   Other: "bg-stone-500",
 };
+
+export interface userProps {
+  _id: string;
+  role: string;
+  fullName: string;
+  phoneNumber: string;
+  profileImage: string;
+  email: string;
+  address: string;
+  updatedAt: string;
+}
