@@ -16,7 +16,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <nav className="bg-white shadow-md fixed w-full top-0 z-50">
+    <nav className="bg-white shadow-md fixed w-full top-0 z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div

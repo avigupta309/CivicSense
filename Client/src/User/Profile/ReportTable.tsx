@@ -3,11 +3,13 @@ import { Report } from "../../types";
 import axios from "axios";
 import { useDataContext } from "../../Context/ContextApi";
 import { formatDateTime } from "../../pages/Report/FormattedDat";
+import { ReportModal } from "../../pages/Report/ReportModal";
 
 export function ReportTable() {
   const { user } = useDataContext();
   const userId = user?._id;
   const [submittedReport, setSubmittedReport] = useState<Report[]>([]);
+  const [reportId, setReportId] = useState<string>("");
   useEffect(() => {
     if (!userId) return;
     async function extractReport() {
@@ -26,14 +28,16 @@ export function ReportTable() {
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-blue-100 overflow-hidden">
       <div className="border-b border-gray-200 p-8">
-        <h2 className="text-3xl font-bold text-gray-900">Your Submitted Reports</h2>
+        <h2 className="text-3xl font-bold text-gray-900">
+          Your Submitted Reports
+        </h2>
         <p className="text-gray-600 mt-2">
           Manage and track your submitted incidents
         </p>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-green-500 border">
+        <table className="w-full border-green-500 border mb-10">
           <thead>
             <tr className="bg-green-500 hover:bg-green-600 text-white border-green-600 ">
               <th className="px-6 py-4 text-left text-sm font-semibold">S.N</th>
@@ -80,7 +84,12 @@ export function ReportTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <button className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors">
+                  <button
+                    onClick={() => {
+                      setReportId(report._id);
+                    }}
+                    className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+                  >
                     View Details
                   </button>
                 </td>
@@ -89,6 +98,14 @@ export function ReportTable() {
           </tbody>
         </table>
       </div>
+      {reportId && (
+        <ReportModal
+          reportId={reportId}
+          onClose={() => {
+            setReportId("");
+          }}
+        />
+      )}
     </div>
   );
 }

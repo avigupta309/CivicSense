@@ -6,8 +6,9 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { AuthUser } from "../src/hook/Auth";
 import { ToastContainer } from "react-toastify";
-// import {UserProfile} from "../src/pages/";
 import { UserProfile } from "./User/main";
+import { Home } from "./pages/Home";
+import { Setting } from "./pages/Setting";
 export const App = () => {
   const isAuthenticated = AuthUser();
   return (
@@ -24,7 +25,12 @@ export const App = () => {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route
+          path="/profile"
+          element={isAuthenticated ? <UserProfile /> : <LoginPage />}
+        />
+        <Route path="/home" element={<Home />} />
+        <Route path="/settingpage" element={<Setting />} />
       </Routes>
     </>
   );

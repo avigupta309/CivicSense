@@ -57,6 +57,16 @@ export async function HandleLogin(req, res) {
   }
 }
 
+export async function handleLogOut(req, res) {
+  try {
+    res.clearCookie("userToken");
+    return res.status(200).json({ message: "Logged out" });
+  } catch (error) {
+    console.log("Cannot LogOut Here");
+    return res.status(404).json({ message: "Cannot Logged out" });
+  }
+}
+
 export async function ViewOneUSer(req, res) {
   const { id } = req.params;
 
@@ -85,7 +95,7 @@ export async function changePassword(req, res) {
       data: "Password Changed Successfully",
     });
   } catch (error) {
-    console.log("errormessage : ",error.message);
+    console.log("errormessage : ", error.message);
     return res.status(401).json({
       message: error.message || "Something Went Wrong",
     });
