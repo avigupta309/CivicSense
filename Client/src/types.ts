@@ -35,6 +35,7 @@ export interface Report {
   district: string;
   address: string;
   imagesUrls: [];
+  status: string;
   location: {
     lat: number;
     lng: number;

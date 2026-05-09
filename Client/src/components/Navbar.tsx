@@ -70,8 +70,8 @@ export default function Navbar() {
                     src={user?.profileImage}
                     alt=""
                   />
-                  {showDropMenu && <DropDownButton />}
                 </div>
+                  {showDropMenu && <DropDownButton />}
               </div>
             ) : (
               <div className="hidden md:flex gap-x-5">

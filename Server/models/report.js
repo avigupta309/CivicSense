@@ -36,8 +36,12 @@ const reportSchema = new Schema(
     reporterInfo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
-      // required: true,
       default: [],
+    },
+    status: {
+      type: String,
+      enum: ["solved", "rejected", "pending", "inprogress"],
+      default: "in-progress",
     },
   },
   { timestamps: true },

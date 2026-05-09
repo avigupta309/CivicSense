@@ -46,7 +46,6 @@ export const FilterComponent = ({
   useEffect(() => {
     setFilterKeyWord(() => [...selectedCategory, ...selectedProvince]);
   }, [selectedCategory, selectedProvince]);
-  console.log(filterKeyWord);
 
   useEffect(() => {
     async function fetchFilterreports() {
@@ -55,7 +54,6 @@ export const FilterComponent = ({
           "http://localhost:3000/api/report/filterdebounce",
           { filterKeyWord },
         );
-        console.log(response.data.data);
         setFilterReport(response.data.data);
       } catch (error) {}
     }

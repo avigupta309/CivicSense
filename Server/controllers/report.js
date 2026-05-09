@@ -1,3 +1,4 @@
+import { STATUS_CODES } from "http";
 import { reportModel } from "../models/report.js";
 import { userModel } from "../models/user.js";
 import { reportImages } from "../upload/report.js";
@@ -116,11 +117,47 @@ export async function debounceFilter(req, res) {
     } else {
       report = await reportModel.find({});
     }
-    
 
     return res.status(200).json({ data: report });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Something Went Wrong" });
+  }
+}
+
+export async function userReports(req, res) {
+  const { id } = req.body;
+
+  try {
+    const report = await reportModel.find({ reporterInfo: id });
+    return res
+      .status(200)
+      .json({ data: report, message: "Report Extract Sucessfully" });
+  } catch (error) {
+    return res.status(401).json({ message: "Report Cannot Extracted " });
+  }
+}
+
+export async function editReportStatus(req, res) {
+  const { status, id } = req.body;
+  console.log(status);
+  try {
+    const report = await reportModel.findById(id);
+    if (!report) {
+      return res.status(404).json({
+        message: "Report not found",
+      });
+    }
+    const updatedReport = await reportModel.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true },
+    );
+    return res
+      .status(200)
+      .json({ data: updatedReport, message: "Report modified Sucessfully" });
+  } catch (error) {
+    console.log("error msg : ", error.message);
+    return res.status(401).json({ message: "Report Cannot Modified " });
   }
 }
