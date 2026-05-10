@@ -7,9 +7,9 @@ import SignupPage from "./pages/SignupPage";
 import { AuthUser } from "../src/hook/Auth";
 import { ToastContainer } from "react-toastify";
 import { UserProfile } from "./User/main";
-import { Home } from "./pages/Home";
 import { Setting } from "./pages/Setting";
 import { AboutPage } from "./pages/AboutPage/Main";
+import { Footer } from "./components/Footer";
 export const App = () => {
   const isAuthenticated = AuthUser();
   return (
@@ -20,8 +20,7 @@ export const App = () => {
       </div>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about-us" element={<AboutPage/>} />
+        <Route path="/about-us" element={<AboutPage />} />
         <Route
           path="/reports"
           element={isAuthenticated ? <ReportList /> : <LoginPage />}
@@ -34,6 +33,9 @@ export const App = () => {
         />
         <Route path="/settingpage" element={<Setting />} />
       </Routes>
+      <div>
+        <Footer />
+      </div>
     </>
   );
 };

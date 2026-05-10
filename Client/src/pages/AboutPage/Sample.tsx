@@ -1,7 +1,7 @@
 import { Vision } from "./Vision";
-import { mockHazardData } from "./mockData";
+import { hazardData } from "./HazardData";
 
-export const ProblemPage = () => {
+export const Sample = () => {
   return (
     <section className="py-16 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
@@ -14,7 +14,7 @@ export const ProblemPage = () => {
           incident reporting.
         </p>
 
-        {mockHazardData.map((item) => (
+        {hazardData.map((item) => (
           <div
             key={item.id}
             className="mb-16 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition"

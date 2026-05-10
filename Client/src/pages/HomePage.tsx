@@ -13,7 +13,7 @@ export const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const isAuthenticated = AuthUser();
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <div className="flex-1 relative">
         <MapComponent />
         {issueForm ? (
