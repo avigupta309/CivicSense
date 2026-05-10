@@ -109,3 +109,15 @@ export interface userProps {
   address: string;
   updatedAt: string;
 }
+
+export interface hazardProps {
+  _id: number;
+  title: string;
+  description: string;
+  imageAlt: string;
+  helpPoints: {
+    title: string;
+    text: string;
+  }[];
+  preventiveMeasures: string[];
+}

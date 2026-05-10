@@ -1,0 +1,89 @@
+<div className="mb-16 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition">
+          <div className="grid md:grid-cols-2 gap-0 md:grid-auto-flow-dense">
+            {/* Content */}
+            <div className="p-8 md:p-10 md:order-2">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-purple-100 text-purple-600 p-3 rounded-lg">
+                  <svg
+                    className="w-6 h-6"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Illegal Activities & Crime Prevention
+                </h3>
+              </div>
+
+              <p className="text-gray-700 leading-relaxed mb-6">
+                Illegal activities including poaching, illegal logging, mining,
+                and environmental crimes threaten Nepal's natural resources and
+                biodiversity. Community reporting strengthens law enforcement.
+              </p>
+
+              <div className="bg-green-50 rounded-lg p-4 mb-6 border-l-4 border-green-500">
+                <h4 className="font-bold text-gray-900 mb-3">
+                  How CivicSense Helps:
+                </h4>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold mt-1">✓</span>
+                    <span>
+                      <strong>Anonymous Reporting:</strong> Witnesses can report
+                      illegal activities safely without fear of retaliation
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold mt-1">✓</span>
+                    <span>
+                      <strong>Geolocation Evidence:</strong> GPS data and photos
+                      provide concrete evidence for law enforcement
+                      investigations
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold mt-1">✓</span>
+                    <span>
+                      <strong>Pattern Recognition:</strong> Authorities identify
+                      crime hotspots and criminal patterns for targeted patrols
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold mt-1">✓</span>
+                    <span>
+                      <strong>Community Empowerment:</strong> Citizens become
+                      active participants in environmental protection
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-400">
+                <h4 className="font-bold text-gray-900 mb-3">
+                  Preventive Measures Enabled:
+                </h4>
+                <ul className="space-y-2 text-gray-700 text-sm">
+                  <li>• Increased enforcement in crime hotspots</li>
+                  <li>• Community-police collaboration strengthening</li>
+                  <li>• Environmental crime prosecution support</li>
+                  <li>• Wildlife and forest protection initiatives</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Image */}
+            <div className="relative h-80 md:h-full bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center md:order-1">
+              <img
+                src="https://via.placeholder.com/500x400/f3e8ff/a855f7?text=Crime+Prevention"
+                alt="Crime prevention illustration"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
