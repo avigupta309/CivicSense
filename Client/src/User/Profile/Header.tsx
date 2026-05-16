@@ -23,8 +23,8 @@ export function Header() {
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
                       {user?.fullName}
                     </h1>
-                    <p className="text-gray-500 flex items-center gap-2">
-                      <Calendar size={16} />
+                    <p className="text-gray-800 flex items-center gap-2">
+                      <Calendar className="text-orange-700" size={16} />
                       Join:
                       {formatDateTime(user?.updatedAt as string)}
                     </p>
@@ -35,34 +35,34 @@ export function Header() {
                     }}
                     className="flex items-center gap-2 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg transition-colors duration-200 font-medium"
                   >
-                    <Edit2 size={18} /> Edit Profile
+                    <Edit2 className="text-orange-700" size={18} /> Edit Profile
                   </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                   <div className="flex items-center gap-3 text-gray-700">
-                    <Mail size={20} className="text-blue-600" />
+                    <Mail size={20} className="text-orange-700" />
                     <div>
                       <p className="text-xs text-gray-500">Email</p>
                       <p className="font-medium">{user?.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-700">
-                    <Phone size={20} className="text-blue-600" />
+                    <Phone size={20} className="text-orange-700" />
                     <div>
                       <p className="text-xs text-gray-500">Phone</p>
                       <p className="font-medium">{user?.phoneNumber}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-700">
-                    <MapPin size={20} className="text-blue-600" />
+                    <MapPin size={20} className="text-orange-700" />
                     <div>
                       <p className="text-xs text-gray-500">Address</p>
                       <p className="font-medium">{user?.address}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-700">
-                    <Calendar size={20} className="text-blue-600" />
+                    <Calendar size={20} className="text-orange-700" />
                     <div>
                       <p className="text-xs text-gray-500">Last Login</p>
                       <p className="font-medium">last login date</p>

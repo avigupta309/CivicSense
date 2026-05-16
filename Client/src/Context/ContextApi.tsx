@@ -14,6 +14,8 @@ interface contextTypeProps {
   setUser: React.Dispatch<React.SetStateAction<userProps | null>>;
   filterReport: Report[];
   setFilterReport: React.Dispatch<React.SetStateAction<Report[]>>;
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DataContext = createContext<contextTypeProps | null>(null);
@@ -23,6 +25,7 @@ export const DataProviderContext = ({ children }: childrenProps) => {
   const [selectedCategory, setSelectedCategory] = useState<IssueCategory[]>([]);
   const [user, setUser] = useState<userProps | null>(null);
   const [filterReport, setFilterReport] = useState<Report[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   return (
     <DataContext.Provider
@@ -35,6 +38,8 @@ export const DataProviderContext = ({ children }: childrenProps) => {
         user,
         filterReport,
         setFilterReport,
+        isAuthenticated,
+        setIsAuthenticated,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { Camera, CheckCircle } from "lucide-react";
+import { Camera } from "lucide-react";
 import { useDataContext } from "../../Context/ContextApi";
 import React, { useState } from "react";
 import axios from "axios";
@@ -9,6 +9,7 @@ export function ProfileImageSection() {
   const userId = user?._id as string;
   const [previewImage, setPreviewImage] = useState(user?.profileImage);
   const [selectedFile, setSelectedFile] = useState<File>();
+  const [sucess, setSucess] = useState<boolean>(false);
   const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target?.files?.[0];
     if (file) {
@@ -18,7 +19,10 @@ export function ProfileImageSection() {
     }
   };
   const handleProfileChangeImage = async () => {
-    if (!selectedFile) return;
+    if (!selectedFile) {
+      return toast.error("Select the image first");
+    }
+    setSucess(true)
     const formData = new FormData();
     formData.append("profilePic", selectedFile);
     formData.append("id", userId);
@@ -29,6 +33,7 @@ export function ProfileImageSection() {
       );
       console.log(response.data);
       toast.success("Profile Image Updated Sucessfully");
+      setSucess(false);
     } catch (error: any) {
       console.log(error.message);
       toast.error("Profile Image Cannot updated");
@@ -52,12 +57,20 @@ export function ProfileImageSection() {
           />
         </label>
       </div>
-      <div className="flex items-center p-1 rounded-lg bg-slate-400 text-white">
-        <p className="text-xs text-center md:text-left">Click To Set Image</p>
-        <CheckCircle
-          onClick={handleProfileChangeImage}
-          className="bg-green-500 hover:bg-green-700 rounded-lg cursor-pointer"
-        />
+      <div>
+        {sucess ? (
+          <p className="flex justify-center items-center ml-5 px-2">
+            Loading...
+            <span className="loading loading-infinity loading-lg "></span>
+          </p>
+        ) : (
+          <button
+            onClick={handleProfileChangeImage}
+            className="p-2 border-2 border-green-300 hover:border-green-400 text-green-700 rounded-lg transition-colors duration-200 font-medium"
+          >
+            Change Profile
+          </button>
+        )}
       </div>
     </div>
   );

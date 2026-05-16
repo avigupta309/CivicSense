@@ -12,7 +12,6 @@ export default function LoginPage() {
     formState: { errors, isSubmitting },
   } = useForm<LoginProps>();
   const navigate = useNavigate();
-
   const onSubmit = async (data: LoginProps) => {
     try {
       await axios.post("http://localhost:3000/api/user/login", data, {

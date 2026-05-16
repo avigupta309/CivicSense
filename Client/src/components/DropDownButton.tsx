@@ -3,17 +3,22 @@ import { LogOut, MoonIcon, Settings, Sun, User } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useDataContext } from "../Context/ContextApi";
 
 export function DropDownButton() {
   const [theme, setTheme] = useState<boolean>(false);
+  const { setUser, setIsAuthenticated } = useDataContext();
+  const navigate = useNavigate();
   async function handleLogOut() {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/user/logout",
-        { withCredentials: true },
-      );
-      console.log(response.data);
+      await axios.get("http://localhost:3000/api/user/logout", {
+        withCredentials: true,
+      });
       toast.success("LogOut SucesssFully");
+      setUser(null);
+      setIsAuthenticated(false);
+      navigate("/");
     } catch (error) {
       toast.warning("Cannot LogOut");
     }
@@ -29,11 +34,11 @@ export function DropDownButton() {
           Profile
         </Link>
         <Link
-          to="/settingpage"
+          to="/weather"
           className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
         >
           <Settings className="h-4 w-4 mr-2" />
-          Settings
+          weather
         </Link>
         <button
           onClick={() => {

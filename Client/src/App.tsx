@@ -8,6 +8,7 @@ import { AuthUser } from "../src/hook/Auth";
 import { ToastContainer } from "react-toastify";
 import { UserProfile } from "./User/main";
 import { Setting } from "./pages/Setting";
+import { WeatherForecast } from "./pages/WeatherPage/Weather";
 import { AboutPage } from "./pages/AboutPage/Main";
 import { Footer } from "./components/Footer";
 export const App = () => {
@@ -31,7 +32,7 @@ export const App = () => {
           path="/profile"
           element={isAuthenticated ? <UserProfile /> : <LoginPage />}
         />
-        <Route path="/settingpage" element={<Setting />} />
+        <Route path="/weather" element={<WeatherForecast />} />
       </Routes>
       <div>
         <Footer />

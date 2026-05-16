@@ -43,7 +43,7 @@ export function ShowPasswordModal({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-2xl font-bold text-gray-900">Change Password</h3>
+          <h3 className="text-2xl font-bold text-green-900">Change Password</h3>
           <button
             onClick={() => setShowPasswordModal(!showPasswordModal)}
             className="text-gray-500 hover:text-gray-700"
@@ -150,7 +150,7 @@ export function ShowPasswordModal({
           <div className="flex gap-4 mt-8">
             <button
               type="submit"
-              className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium"
+              className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200 font-medium"
             >
               Update Password
             </button>
