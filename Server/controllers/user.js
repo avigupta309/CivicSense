@@ -117,7 +117,6 @@ export async function HandleUserDelete(req, res) {
 }
 
 export async function viewAllUser(req, res) {
-  console.log("here is all user");
   try {
     const users = await userModel.find();
     if (!users)
@@ -148,7 +147,6 @@ export async function handleChangeRole(req, res) {
 
 export const handleUserEditInfo = async (req, res) => {
   const { id, fullName, address } = req.body;
-  console.log(req.body);
   const user = await userModel.findById(id);
   if (!user) {
     return res

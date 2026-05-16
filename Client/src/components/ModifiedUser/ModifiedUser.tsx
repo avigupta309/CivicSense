@@ -10,7 +10,6 @@ export function ModiFiedUser() {
 
   useEffect(() => {
     async function fetChedUser() {
-      console.log("waiting....");
       try {
         const response = await axios.get(
           "http://localhost:3000/api/user/alluser",

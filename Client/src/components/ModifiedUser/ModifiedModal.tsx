@@ -42,13 +42,11 @@ export function ModifiedModal({ userId, onClose }: ModalControlProps) {
 
   const onSubmit = async (data: userProps) => {
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:3000/api/user/changerole/${userId}`,
         data,
       );
-      console.log(response.data);
     } catch (error) {}
-    console.log(data);
   };
 
   return (

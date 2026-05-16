@@ -27,13 +27,11 @@ export function ShowPasswordModal({
   } = useForm<userCredentialProps>();
 
   const onSubmit = async (data: userCredentialProps) => {
-    console.log("clicked", data);
     try {
       const response = await axios.put(
         "http://localhost:3000/api/user/changepassword",
         { ...data, id: userId },
       );
-      console.log(response.data);
     } catch (error: any) {
       console.log(error.message);
     }

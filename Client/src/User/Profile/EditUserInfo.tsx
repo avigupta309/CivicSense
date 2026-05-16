@@ -29,7 +29,6 @@ export function EditUserInfo({
         "http://localhost:3000/api/user/edituser",
         { ...data, id: userId },
       );
-      console.log(response.data);
       toast.success("Profile updated successfully");
     } catch (error: any) {
       toast.error("Failed to update profile. Please try again");

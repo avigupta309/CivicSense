@@ -7,7 +7,7 @@ export async function SubmitReport(req, res) {
   const { id, description, location, category, province, district, address } =
     req.body;
 
-  // const coordinates = JSON.parse(location);
+  const coordinates = JSON.parse(location);
 
   try {
     const user = await userModel.findById(id);
@@ -22,10 +22,8 @@ export async function SubmitReport(req, res) {
       reporterInfo: id,
       imagesUrls: reportImagesUrl,
       location: {
-        lat: 27.700769,
-        lng: 85.30014,
-        // lat: coordinates.latww | 27.700769,
-        // lng: coordinates.lngww | 85.30014,
+        lat: coordinates.latww | 27.700769,
+        lng: coordinates.lngww | 85.30014,
       },
     });
     return res.status(201).json({ message: "Report Submit Sucessfully !!" });
@@ -140,7 +138,6 @@ export async function userReports(req, res) {
 
 export async function editReportStatus(req, res) {
   const { status, id } = req.body;
-  console.log(status);
   try {
     const report = await reportModel.findById(id);
     if (!report) {

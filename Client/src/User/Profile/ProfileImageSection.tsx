@@ -31,7 +31,6 @@ export function ProfileImageSection() {
         "http://localhost:3000/api/user/edituser",
         formData,
       );
-      console.log(response.data);
       toast.success("Profile Image Updated Sucessfully");
       setSucess(false);
     } catch (error: any) {
