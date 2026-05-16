@@ -106,9 +106,9 @@ export default function SignupPage() {
                   <input
                     {...register("phoneNumber", {
                       required: "Phone Number is Required",
-                      minLength: {
-                        value: 10,
-                        message: "Number must be 10 digits",
+                      pattern: {
+                        value: /^[0-9]{10}$/,
+                        message: "Phone Number must be exact 10 digit",
                       },
                     })}
                     className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"

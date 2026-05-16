@@ -69,7 +69,6 @@ export async function handleLogOut(req, res) {
 
 export async function ViewOneUSer(req, res) {
   const { id } = req.params;
-
   try {
     const user = await userModel.findById(id);
     return res.status(201).json({ data: user });
@@ -118,6 +117,7 @@ export async function HandleUserDelete(req, res) {
 }
 
 export async function viewAllUser(req, res) {
+  console.log("here is all user");
   try {
     const users = await userModel.find();
     if (!users)
@@ -137,7 +137,7 @@ export async function handleChangeRole(req, res) {
     const updatedUser = await userModel.findByIdAndUpdate(
       id,
       { role },
-      { new: true, runValidators: true },
+      { returnDocument: "after" },
     );
 
     return res.status(201).json({ message: updatedUser });

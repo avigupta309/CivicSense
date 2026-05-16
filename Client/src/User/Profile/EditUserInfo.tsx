@@ -53,7 +53,13 @@ export function EditUserInfo({
               Full Namess
             </label>
             <input
-              {...register("fullName", { required: "Name is Required" })}
+              {...register("fullName", {
+                required: "Name is Required",
+                minLength: {
+                  value: 4,
+                  message: "Name Must be greateer than 4 digit",
+                },
+              })}
               type="text"
               className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
             />
@@ -81,6 +87,10 @@ export function EditUserInfo({
               value={user?.phoneNumber}
               {...register("phoneNumber", {
                 required: "Phone Number is Required",
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message: "Phone Number must be exactly 10 digits",
+                },
               })}
               readOnly
               type="tel"
@@ -100,6 +110,7 @@ export function EditUserInfo({
               {errors.address?.message}
             </p>
           </div>
+          
         </div>
 
         <div className="flex gap-4 mt-6">

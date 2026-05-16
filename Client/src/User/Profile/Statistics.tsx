@@ -25,7 +25,6 @@ export function Statistics() {
       inprogress += 1;
     }
   });
-  console.log(rejected, pending, inprogress);
 
   useEffect(() => {
     if (!userId) return;
@@ -35,7 +34,6 @@ export function Statistics() {
           "http://localhost:3000/api/report/usereports",
           { id: userId },
         );
-        console.log(response.data.data);
         setReportStat(response.data.data);
       } catch (error: any) {
         console.log("error message: ", error.message);

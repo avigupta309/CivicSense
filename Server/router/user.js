@@ -19,9 +19,9 @@ userRouter
   .post("/", HandleUserSignUp)
   .post("/login", HandleLogin)
   .get("/logout", handleLogOut)
+  .get("/alluser", viewAllUser)
   .get("/:id", ViewOneUSer)
   .put("/changepassword", changePassword)
   .delete("/del/:id", HandleUserDelete)
-  .get("/alluser", viewAllUser)
-  .post("/changerole/:id", handleChangeRole)
+  .put("/changerole/:id", handleChangeRole)
   .post("/edituser", upload.single("profilePic"), handleUserEditInfo);

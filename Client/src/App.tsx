@@ -7,7 +7,6 @@ import SignupPage from "./pages/SignupPage";
 import { AuthUser } from "../src/hook/Auth";
 import { ToastContainer } from "react-toastify";
 import { UserProfile } from "./User/main";
-import { Setting } from "./pages/Setting";
 import { WeatherForecast } from "./pages/WeatherPage/Weather";
 import { AboutPage } from "./pages/AboutPage/Main";
 import { Footer } from "./components/Footer";

@@ -1,5 +1,11 @@
 import axios from "axios";
-import { LogOut, MoonIcon, Settings, Sun, User } from "lucide-react";
+import {
+  LogOut,
+  LucideEarth,
+  MoonIcon,
+  Sun,
+  User,
+} from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -37,7 +43,7 @@ export function DropDownButton() {
           to="/weather"
           className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
         >
-          <Settings className="h-4 w-4 mr-2" />
+          <LucideEarth className="h-4 w-4 mr-2" />
           weather
         </Link>
         <button
