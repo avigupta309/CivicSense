@@ -41,7 +41,7 @@ const reportSchema = new Schema(
     status: {
       type: String,
       enum: ["solved", "rejected", "pending", "inprogress"],
-      default: "in-progress",
+      default: "inprogress",
     },
   },
   { timestamps: true },

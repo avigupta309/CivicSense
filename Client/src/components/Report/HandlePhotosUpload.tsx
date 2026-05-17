@@ -1,54 +1,55 @@
 import { Upload, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-interface photosUploadProps {
+interface PhotosUploadProps {
   photos: File[];
   setPhotos: React.Dispatch<React.SetStateAction<File[]>>;
 }
-
 export const HandlePhotosUpload = ({
   photos,
   setPhotos,
-}: photosUploadProps) => {
+}: PhotosUploadProps) => {
   const [preview, setPreview] = useState<string[]>([]);
+  useEffect(() => {
+    const previewUrls = photos.map((file) => URL.createObjectURL(file));
+    setPreview(previewUrls);
+    return () => {
+      previewUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [photos]);
   const submitPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files && photos.length < 3) {
-      const fileArray = Array.from(files).slice(0, 3 - photos.length);
-      setPhotos((prev) => [...prev, ...fileArray]);
-      const previews = fileArray.map((file) => URL.createObjectURL(file));
-      setPreview((prev) => [...prev, ...previews]);
-    }
+    if (!files) return;
+    const fileArray = Array.from(files).slice(0, 3 - photos.length);
+    setPhotos((prev) => [...prev, ...fileArray]);
+    e.target.value = "";
   };
 
-  function removePhoto(index: number) {
-    URL.revokeObjectURL(preview[index]);
-    setPhotos(photos.filter((_, i) => i !== index));
-    setPreview(preview.filter((_, i) => i !== index));
-  }
-  useEffect(() => {
-    return () => {
-      preview.forEach((url) => URL.revokeObjectURL(url));
-    };
-  }, [preview]);
+  const removePhoto = (index: number) => {
+    setPhotos((prev) => prev.filter((_, i) => i !== index));
+  };
 
   return (
     <div>
       <label className="block text-sm font-medium text-stone-700 mb-2">
         Photos (up to 3)
       </label>
+
       <div className="space-y-3">
         {photos.length < 3 && (
           <label className="flex items-center justify-center w-full h-32 border-2 border-dashed border-stone-300 rounded-lg cursor-pointer hover:border-green-500 transition-colors">
             <div className="text-center">
               <Upload className="w-8 h-8 text-stone-400 mx-auto mb-2" />
+
               <p className="text-sm text-stone-600">
                 Click to upload or drag and drop
               </p>
+
               <p className="text-xs text-stone-400 mt-1">
                 {3 - photos.length} slots remaining (PNG, JPG up to 10MB)
               </p>
             </div>
+
             <input
               type="file"
               accept="image/*"
@@ -59,7 +60,7 @@ export const HandlePhotosUpload = ({
           </label>
         )}
 
-        {photos.length > 0 && (
+        {preview.length > 0 && (
           <div className="grid grid-cols-3 gap-3">
             {preview.map((photo, index) => (
               <div key={index} className="relative group">
@@ -68,6 +69,7 @@ export const HandlePhotosUpload = ({
                   alt={`Upload ${index + 1}`}
                   className="w-full h-32 object-cover rounded-lg"
                 />
+
                 <button
                   type="button"
                   onClick={() => removePhoto(index)}

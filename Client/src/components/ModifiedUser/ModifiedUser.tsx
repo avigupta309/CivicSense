@@ -96,7 +96,7 @@ export function ModiFiedUser() {
         <div className="mt-6 flex justify-between items-center">
           <p className="text-gray-600 font-medium">
             Total Users:{" "}
-            <span className="text-green-600 font-bold">users.length</span>
+            <span className="text-green-600 font-bold">{users.length}</span>
           </p>
         </div>
       </div>

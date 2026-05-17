@@ -14,7 +14,7 @@ export default function SignupPage() {
 
   const onSubmit = async (data: signUpProps) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/user", data);
+      await axios.post("http://localhost:3000/api/user", data);
       navigate("/login");
     } catch (error: any) {
       console.log(error.message);
@@ -138,7 +138,7 @@ export default function SignupPage() {
                 </div>
               </div>
 
-              <div className="md:col-span-2">
+              {/* <div className="md:col-span-2">
                 <label className="flex items-center gap-3 border h-12 px-4 rounded-lg cursor-pointer">
                   <User2 className="text-stone-400 w-5 h-5" />
                   <span className="text-sm text-stone-600">
@@ -156,7 +156,7 @@ export default function SignupPage() {
                     {errors.profileImage?.message}
                   </p>
                 </label>
-              </div>
+              </div> */}
 
               <div>
                 <label className="text-sm text-stone-700 mb-1 block">
