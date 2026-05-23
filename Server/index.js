@@ -6,6 +6,7 @@ import cors from "cors";
 import { reportRouter } from "./router/report.js";
 import { CheckAuthUser } from "./middleware/auth.js";
 import cookieParser from "cookie-parser";
+import { sosRouter } from "./router/sos.js";
 const app = express();
 configDotenv();
 const mongo_URI = process.env.MONGO_URI;
@@ -30,6 +31,7 @@ app.get("/", CheckAuthUser("userToken"), (req, res) => {
 
 app.use("/api/user", userRouter);
 app.use("/api/report", reportRouter);
+app.use("/api/sos",sosRouter)
 app.listen(3000, () => {
   console.log("Server is Started at port 3000");
 });
