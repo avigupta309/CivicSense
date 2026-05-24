@@ -1,9 +1,11 @@
 import { sosModel } from "../models/sos.js";
 import { userModel } from "../models/user.js";
+import { handleRequestSos } from "./requestedSos.js";
 
 export async function sosSet(req, res) {
   const { userId, helperId, relation } = req.body;
   try {
+    await handleRequestSos(req.body);
     const helper = await userModel.findById(helperId);
     if (!helper) {
       return res.status(404).json({
@@ -52,7 +54,7 @@ export async function sosSet(req, res) {
 export async function findSosUser(req, res) {
   const { userId } = req.body;
   try {
-    const helpers = await sosModel.findOne({userInfo:userId});
+    const helpers = await sosModel.findOne({ userInfo: userId });
     if (!helpers) {
       return res.status(401).json({ message: "You Havent add any helper yet" });
     }

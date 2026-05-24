@@ -1,15 +1,14 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
-const sosSchema = new Schema(
+const requestSchema = new Schema(
   {
-    userInfo: {
+    requestedTo: {
       type: mongoose.Schema.ObjectId,
       ref: "users",
-      default: null,
     },
-    helperInfo: [
+    requestedFrom: [
       {
-        helper: {
+        requesters: {
           type: mongoose.Schema.ObjectId,
           ref: "users",
         },
@@ -18,7 +17,6 @@ const sosSchema = new Schema(
           enum: ["confirm", "pending", "denied"],
           default: "pending",
         },
-
         relation: {
           type: String,
           enum: [
@@ -38,4 +36,4 @@ const sosSchema = new Schema(
   { timestamps: true },
 );
 
-export const sosModel = new model("sos", sosSchema);
+export const requestSosModel = new model("requestsos", requestSchema);
